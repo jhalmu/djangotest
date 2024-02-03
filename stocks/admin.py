@@ -3,7 +3,13 @@ from .models import Currency, Ticker, Industry, Portfolio
 
 # Register your models here.
 admin.site.register(Currency)
-admin.site.register(Ticker)
+
+@admin.register(Ticker)
+
+class TickerAdmin(admin.ModelAdmin):
+    list_display = ("symbol", "name")
+    list_display_links = ["name"]
+
 admin.site.register(Industry)
 
 @admin.register(Portfolio)
