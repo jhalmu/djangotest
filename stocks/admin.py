@@ -14,5 +14,5 @@ class TickerAdmin(admin.ModelAdmin):
 @admin.register(PortfolioItem)
 
 class PortfolioItemAdmin(admin.ModelAdmin):
-    list_display = ("ticker_name", "ticker", "industry", "amount", "avg_price", "bought_price")
+    list_display = ("ticker_name", "ticker_symbol", "industry", "amount", "avg_price", "bought_price")
     list_display_links = ["ticker_name"] 

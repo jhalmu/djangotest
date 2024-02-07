@@ -58,7 +58,7 @@ class Ticker(models.Model):
 
 class PortfolioItem(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, default=User)
-    ticker = models.OneToOneField(Ticker, unique=True, on_delete=models.SET_NULL, blank=True, null=True)
+    ticker = models.ManyToManyField(Ticker)
     industry = models.ForeignKey(Industry, on_delete=models.SET_NULL, blank=True, null=True)
     amount = models.DecimalField(max_digits=10, decimal_places=4)
     avg_price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -66,10 +66,15 @@ class PortfolioItem(models.Model):
     class Meta:
         verbose_name = _("portfolio item")
         verbose_name_plural = _("portfolio items")
-        ordering = ["ticker"]
+    
+    def __str__(self):
+        return self.ticker
 
     def ticker_name(self):
         return self.ticker.name
+    
+    def ticker_symbol(self):
+        return self.ticker.symbol
  
     def bought_price(self):
         return round(self.amount*self.avg_price,2)
